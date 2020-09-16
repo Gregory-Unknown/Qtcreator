@@ -28,6 +28,5 @@ void MainWindow::on_button_2_clicked()
 
 void MainWindow::on_button_3_clicked()
 {
-    QString dest = ui->qpte_1->toPlainText();
-    ui->qpte_2->setHtml("<font color='red'>Hello</font>");
+    ui->qpte_2->document()->setHtml("<font color='red'>Hello</font>");
 }
