@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    if (parseText) {
+        delete parseText;
+        parseText = nullptr;
+    }
     delete ui;
 }
 
