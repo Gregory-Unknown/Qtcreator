@@ -14,7 +14,7 @@ QtApplication {
         "mainwindow.cpp",
         "mainwindow.h",
         "mainwindow.ui",
-        "help.txt",
+        "res.qrc",
     ]
 
     install: true

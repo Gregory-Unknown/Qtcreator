@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QFile>
 #include <QFileDialog>
+#include <QPushButton>
+#include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +19,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    void keyReleaseEvent(QKeyEvent* event) override;
+
 private slots:
 
     void on_open_Button_clicked();
     void on_save_Button_clicked();
     void on_help_Button_clicked();
+    void on_read_Button_clicked();
 
 private:
     Ui::MainWindow *ui;
