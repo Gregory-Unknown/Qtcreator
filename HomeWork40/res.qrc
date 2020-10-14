@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>help.txt</file>
+    </qresource>
+    <qresource prefix="/new/prefix2">
+        <file>switchlang_ru.qm</file>
+    </qresource>
+</RCC>
