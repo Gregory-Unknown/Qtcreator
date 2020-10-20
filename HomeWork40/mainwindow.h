@@ -12,6 +12,12 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QApplication>
+#include <QMdiArea>
+#include <QGridLayout>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QMdiSubWindow>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,6 +40,8 @@ private slots:
     void on_save_Button_clicked();
     void on_help_Button_clicked();
     void on_read_Button_clicked();
+    void on_print_Button_clicked();
+    void on_new_Button_clicked();
     void darkTheme();
     void lightTheme();
     void clickSwitch();
@@ -43,6 +51,7 @@ private:
     QPushButton *ru_RU, *en_EN;
     QTranslator translater;
     void switchLanguage(QString language);
+    QMdiArea *mdiArea;
 };
 #endif // MAINWINDOW_H
 

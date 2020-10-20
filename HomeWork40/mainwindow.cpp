@@ -7,12 +7,48 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QMenu* fileMenu = menuBar()->addMenu(tr("theme"));
+    mdiArea = new QMdiArea(this);
+    QWidget *wgt = new QWidget(this);
+    setCentralWidget(wgt);
+    QGridLayout *layout = new QGridLayout(this);
+    wgt->setLayout(layout);
+    layout->addWidget(mdiArea, 1, 0, 10, 5);
+    mdiArea->addSubWindow(ui->plainTextEdit);
+    mdiArea->cascadeSubWindows();
 
-    QAction* themeAct = fileMenu->addAction(tr("Dark"));
+    QMenu *fileMenu = menuBar()->addMenu(tr("File"));
+
+    QAction *newAct = fileMenu->addAction(tr("New"));
+    connect(newAct, SIGNAL(triggered(bool)), this, SLOT(on_new_Button_clicked()));
+
+    QAction *openAct = fileMenu->addAction(tr("Open"));
+    connect(openAct, SIGNAL(triggered(bool)), this, SLOT(on_open_Button_clicked()));
+
+    QAction *readAct = fileMenu->addAction(tr("Read"));
+    connect(readAct, SIGNAL(triggered(bool)), this, SLOT(on_read_Button_clicked()));
+
+    QAction *saveAct = fileMenu->addAction(tr("Save"));
+    connect(saveAct, SIGNAL(triggered(bool)), this, SLOT(on_save_Button_clicked()));
+
+    QAction *helpAct = fileMenu->addAction(tr("Help"));
+    connect(helpAct, SIGNAL(triggered(bool)), this, SLOT(on_help_Button_clicked()));
+
+    fileMenu->addSeparator();
+
+    QAction *printAct = fileMenu->addAction(tr("Print"));
+    connect(printAct, SIGNAL(triggered(bool)), this, SLOT(on_print_Button_clicked()));
+
+    fileMenu->addSeparator();
+
+    QAction *closeAct = fileMenu->addAction(tr("Exit"));
+    connect(closeAct, SIGNAL(triggered(bool)), this, SLOT(close()));
+
+    QMenu* fileMenu2 = menuBar()->addMenu(tr("theme"));
+
+    QAction* themeAct = fileMenu2->addAction(tr("Dark"));
     connect(themeAct, SIGNAL(triggered(bool)), this, SLOT(darkTheme()));
 
-    QAction* themeAct2 = fileMenu->addAction(tr("Light"));
+    QAction* themeAct2 = fileMenu2->addAction(tr("Light"));
     connect(themeAct2, SIGNAL(triggered(bool)), this, SLOT(lightTheme()));
 
     ru_RU = new QPushButton(this);
@@ -34,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     switchLanguage(QLocale::system().name());
     connect(ru_RU, SIGNAL(clicked()), this, SLOT(clickSwitch()));
     connect(en_EN, SIGNAL(clicked()), this, SLOT(clickSwitch()));
+    ui->retranslateUi(this);
 }
 
 MainWindow::~MainWindow()
@@ -98,6 +135,26 @@ void MainWindow::on_help_Button_clicked()
     }
 }
 
+void MainWindow::on_print_Button_clicked()
+{
+    QMdiSubWindow* activSubWindow = mdiArea->activeSubWindow();
+        QWidget* wdg = activSubWindow->widget();
+        QPlainTextEdit* plainTextEdit = (QPlainTextEdit*)wdg;
+        QPrinter printer;
+        QPrintDialog dlg(&printer, this);
+        if(dlg.exec() == QDialog::Accepted) {
+            plainTextEdit->print(&printer);
+        }
+}
+
+void MainWindow::on_new_Button_clicked()
+{
+    QPlainTextEdit* plainTextEdit = new QPlainTextEdit(this);
+    mdiArea->addSubWindow(plainTextEdit);
+    plainTextEdit->setWindowTitle(tr("New"));
+    plainTextEdit->show();
+}
+
 void MainWindow::darkTheme()
 {
     setStyleSheet("QPlainTextEdit { background-color: Grey}"
@@ -122,7 +179,7 @@ void MainWindow::switchLanguage(QString language)
 void MainWindow::clickSwitch()
 {
     QObject *obj = sender();
-    if (obj == ru_RU) switchLanguage("ru");
-    if (obj == en_EN) switchLanguage("en");
+    if (static_cast<QPushButton*>(obj) == ru_RU) switchLanguage("ru");
+    if (static_cast<QPushButton*>(obj) == en_EN) switchLanguage("en");
 }
 
