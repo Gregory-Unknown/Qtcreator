@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>help.txt</file>
+        <file>QtLanguage_ru_RU.qm</file>
+    </qresource>
+</RCC>
