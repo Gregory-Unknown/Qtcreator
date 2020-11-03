@@ -1,0 +1,19 @@
+>> RUS
+
+Это справка текстового редактора.
+
+Редактор поддерживает многодокументный интерфейс.
+
+Вкладка меню «Файл» поможет создать, открыть, сохранить или напечатал файл.
+Вкладка меню «Правка» поможет выделить, вырезать, скопировать и вставить текст.
+Вкладка меню «Окно» поможет выбрать тему или язык.
+
+>> ENG
+
+This is the help of a text editor.
+
+The editor supports a multi-document interface.
+
+The File menu tab helps you create, open, save, or print a file.
+The tab of the "Edit" menu will help you select, cut, copy and paste the text.
+The menu tab "Window" will help you choose a theme or language.
